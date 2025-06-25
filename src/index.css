@@ -205,3 +205,38 @@ a, button, input { font-family: inherit; }
   }
   .gemini-sidebar { display: none; }
 }
+/* ===== Sidebar Toggle Button ===== */
+.sidebar-toggle {
+  position: absolute;
+  right: -14px;
+  top: 20px;
+  width: 28px;
+  height: 28px;
+  background-color: var(--accent);
+  border: none;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: transform 0.3s ease;
+  z-index: 10;
+}
+
+.sidebar-toggle:hover {
+  background-color: var(--accent-dark);
+  transform: scale(1.05);
+}
+
+.sidebar-toggle .bar {
+  width: 16px;
+  height: 2px;
+  background-color: #002329;
+  margin: 2px 0;
+  border-radius: 2px;
+}
+.sidebar-toggle.active {
+  transform: rotate(180deg);
+}
