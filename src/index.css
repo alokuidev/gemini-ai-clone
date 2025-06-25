@@ -1,16 +1,15 @@
 /* ─────────────────────────────────────────
-   Gemini Clone – Consolidated CSS (v2.1)
-   Professional slate + teal-cyan palette
-   All styles merged for plug-and-play use
-   ───────────────────────────────────────── */
+   Gemini Clone – Polished CSS v3
+   Collapsible sidebar, centered chat, pro UI
+───────────────────────────────────────── */
 
 /* ===== Design Tokens ===== */
 :root {
   --bg: #1a1d21;
-  --panel: #252a30cc;        /* glass panel */
+  --panel: #252a30cc;
   --border: #2f343a;
-  --accent: #4dd0e1;         /* primary cyan */
-  --accent-dark: #26c6da;    /* hover */
+  --accent: #4dd0e1;
+  --accent-dark: #26c6da;
   --text: #e3e8ee;
   --text-secondary: #9ea7b3;
   --radius-s: 8px;
@@ -97,20 +96,42 @@ a, button, input { font-family: inherit; }
   grid-area: sidebar;
   display: flex;
   flex-direction: column;
-  padding: 24px 18px;
+  padding: 24px 12px;
   gap: 32px;
+  width: 250px;
+  transition: width 0.4s ease;
+  overflow: hidden;
+  position: relative;
 }
+.gemini-sidebar.collapsed {
+  width: 64px;
+}
+.gemini-sidebar footer {
+  margin-top: auto;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+/* ===== Nav Buttons (with icon-only collapse) ===== */
 .nav-btn {
-  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
   padding: 10px 14px;
   margin-bottom: 12px;
-  text-align: left;
   background: none;
   border: 1px solid var(--border);
   color: var(--text-secondary);
   border-radius: var(--radius-s);
   cursor: pointer;
-  transition: background 0.22s, color 0.22s, border-color 0.22s;
+  transition: all 0.25s ease;
+  font-size: 1rem;
+  white-space: nowrap;
+}
+.nav-btn::before {
+  content: attr(data-label);
+  transition: opacity 0.2s ease, width 0.2s ease;
 }
 .nav-btn:hover,
 .nav-btn.active {
@@ -118,97 +139,21 @@ a, button, input { font-family: inherit; }
   color: #002329;
   border-color: transparent;
 }
-.gemini-sidebar footer { margin-top: auto; font-size: 0.75rem; color: var(--text-secondary); }
-
-/* ===== Chat Area ===== */
-.gemini-chat {
-  grid-area: main;
-  display: flex;
-  flex-direction: column;
+.gemini-sidebar.collapsed .nav-btn {
+  justify-content: center;
+  gap: 0;
+  padding-left: 0;
+}
+.gemini-sidebar.collapsed .nav-btn::before {
+  opacity: 0;
+  width: 0;
   overflow: hidden;
 }
 
-/* Chat feed (messages) */
-.chat-feed {
-  flex: 1;
-  display: flex;
-  flex-direction: column-reverse; /* newest at bottom */
-  align-items: center;
-  gap: 28px;
-  padding: 40px 0;
-  overflow-y: auto;
-}
-
-/* Bubble styling */
-.chat-bubble {
-  width: clamp(260px, 80%, 680px);
-  padding: 16px 22px;
-  border-radius: var(--radius-xl);
-  line-height: 1.5;
-  word-break: break-word;
-  box-shadow: var(--shadow);
-}
-.bot  { background: #242a30; }
-.user {
-  background: var(--accent);
-  color: #002329;
-  margin-left: auto;
-  text-align: right;
-}
-
-/* ===== Input Bar ===== */
-.input-bar {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 24px;
-}
-.prompt-input {
-  flex: 1;
-  padding: 12px 18px;
-  border: none;
-  border-radius: var(--radius-m);
-  background: #1e2328;
-  color: var(--text);
-  outline: none;
-}
-.send-btn {
-  width: 42px;
-  height: 42px;
-  border: none;
-  border-radius: 50%;
-  background: var(--accent);
-  color: #002329;
-  font-size: 1.25rem;
-  cursor: pointer;
-  transition: background 0.25s;
-}
-.send-btn:hover { background: var(--accent-dark); }
-
-/* ===== Scrollbar Polish ===== */
-::-webkit-scrollbar       { width: 8px; }
-::-webkit-scrollbar-thumb { background: #33383d; border-radius: 8px; }
-
-/* ===== Responsive Tweaks ===== */
-@media (max-width: 900px) {
-  .gemini-wrapper { grid-template-columns: 70px 1fr; }
-  .logo           { font-size: 1rem; }
-  .nav-btn,
-  .nav-btn.active { font-size: 0; }   /* hide labels, keep icons */
-}
-@media (max-width: 640px) {
-  .gemini-wrapper {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "header"
-      "main";
-  }
-  .gemini-sidebar { display: none; }
-}
 /* ===== Sidebar Toggle Button ===== */
 .sidebar-toggle {
   position: absolute;
-  right: -14px;
+  right: 5px;
   top: 20px;
   width: 28px;
   height: 28px;
@@ -224,12 +169,10 @@ a, button, input { font-family: inherit; }
   transition: transform 0.3s ease;
   z-index: 10;
 }
-
 .sidebar-toggle:hover {
   background-color: var(--accent-dark);
   transform: scale(1.05);
 }
-
 .sidebar-toggle .bar {
   width: 16px;
   height: 2px;
@@ -237,6 +180,116 @@ a, button, input { font-family: inherit; }
   margin: 2px 0;
   border-radius: 2px;
 }
-.sidebar-toggle.active {
-  transform: rotate(180deg);
+
+/* ===== Chat Area ===== */
+.gemini-chat {
+  grid-area: main;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 20px;
+  align-items: center;
+}
+
+/* Chat feed (messages) */
+.chat-feed {
+  flex: 1;
+  width: 100%;
+  max-width: 700px;
+  padding: 40px 0;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 24px;
+  overflow-y: auto;
+}
+.chat-bubble {
+  width: fit-content;
+  max-width: 90%;
+  padding: 16px 22px;
+  border-radius: var(--radius-xl);
+  line-height: 1.5;
+  word-break: break-word;
+  box-shadow: var(--shadow);
+}
+.bot  { background: #242a30; }
+.user {
+  background: var(--accent);
+  color: #002329;
+  margin-left: auto;
+  text-align: right;
+}
+
+/* ===== Input Bar with Mic/Image Buttons ===== */
+.input-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 24px;
+  width: 100%;
+  max-width: 700px;
+  margin: auto;
+}
+.input-icons {
+  display: flex;
+  gap: 10px;
+}
+.icon-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+}
+.icon-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text);
+}
+.prompt-input {
+  flex: 1;
+  padding: 12px 18px;
+  border: none;
+  border-radius: var(--radius-m);
+  background: #e8eff5;
+  color: #000
+  outline: none;
+}
+.send-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: none;
+  background: var(--accent);
+  color: #002329;
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: background 0.25s;
+}
+.send-btn:hover { background: var(--accent-dark); }
+
+/* ===== Scrollbar Polish ===== */
+::-webkit-scrollbar       { width: 8px; }
+::-webkit-scrollbar-thumb { background: #33383d; border-radius: 8px; }
+
+/* ===== Responsive Tweaks ===== */
+@media (max-width: 900px) {
+  .gemini-wrapper { grid-template-columns: 64px 1fr; }
+  .logo           { font-size: 1rem; }
+}
+@media (max-width: 640px) {
+  .gemini-wrapper {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "header"
+      "main";
+  }
+  .gemini-sidebar { display: none; }
+}
+.button-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin-top: 30px;
 }
