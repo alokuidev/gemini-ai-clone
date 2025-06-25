@@ -201,7 +201,7 @@ a, button, input { font-family: inherit; }
   width: 100%;
   max-width: 700px;
   padding: 40px 0;
-  display: flex;
+  display: none;
   flex-direction: column-reverse;
   gap: 24px;
   overflow-y: auto;
@@ -296,4 +296,76 @@ a, button, input { font-family: inherit; }
   flex-direction: column;
   height: 100%;
   margin-top: 30px;
+}
+.hero-section {
+  padding: 80px 40px;
+  background: #f7f7f7;
+  color: #333;
+  min-height: 65vh;
+}
+
+.hero-header h1 {
+  font-size: 3.5rem;
+  margin: 0;
+  font-weight: 700;
+}
+
+.gradient-text {
+  background: linear-gradient(to right, #4b0082, #ff3c3c);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-header h2 {
+  font-size: 2rem;
+  font-weight: 400;
+  color: #666;
+  margin: 10px 0 40px;
+}
+
+.prompt-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+}
+
+.prompt-card {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.prompt-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.1);
+}
+
+.icon {
+  font-size: 1.8rem;
+}
+.chat-container {
+  width: 100%;
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+.hero-section {
+  background: #f7f7f7;
+  padding: 60px 40px;
+  border-radius: 16px;
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
 }

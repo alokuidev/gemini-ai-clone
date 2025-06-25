@@ -1,10 +1,16 @@
-import React, { useState } from 'react'
+import React, { use, useEffect, useState } from 'react'
 
-const Sidebar = () => {
+const Sidebar = ({props}) => {
     const [extended, setExtended] = useState(false);
+    const panelCollapse = () => {
+        setExtended(!extended);
+    }
+    useEffect(() => {
+        console.log(props)
+    },[]);
     return (
         <aside className={`gemini-sidebar glass ${extended ? 'collapsed' : ''}`}>
-            <button className="sidebar-toggle" aria-label="Toggle Sidebar" onClick={() => setExtended(prev => !prev)}>
+            <button className="sidebar-toggle" aria-label="Toggle Sidebar" onClick={() =>panelCollapse()}>
                 <span className="bar"></span>
                 <span className="bar"></span>
                 <span className="bar"></span>
