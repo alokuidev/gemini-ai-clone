@@ -1,35 +1,37 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from "react";
 
-function App() {
-  const [count, setCount] = useState(0)
-
+const App = () => {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div>
+      <div className="gemini-wrapper">
+        <header className="gemini-header">
+          <div className="logo">Gemini</div>
+          <input
+            className="search-bar"
+            placeholder="Search or start a chat..."
+          />
+          <div className="user-avatar">A</div>
+        </header>
 
-export default App
+        <aside className="gemini-sidebar">
+          <button className="sidebar-btn active">New Chat</button>
+          <button className="sidebar-btn">History</button>
+          <button className="sidebar-btn">Settings</button>
+        </aside>
+
+        <main className="gemini-chat">
+          <div className="chat-message user">Hi Gemini, what can you do?</div>
+          <div className="chat-message ai">
+            I can help you with writing, coding, learning, and more!
+          </div>
+          <div className="chat-input-container">
+            <input className="chat-input" placeholder="Type your message..." />
+            <button className="send-btn">➤</button>
+          </div>
+        </main>
+      </div>
+    </div>
+  );
+};
+
+export default App;
