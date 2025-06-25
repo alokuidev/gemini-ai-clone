@@ -4,6 +4,7 @@
 ───────────────────────────────────────── */
 
 /* ===== Design Tokens ===== */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 :root {
   --bg: #1a1d21;
   --panel: #252a30cc;
@@ -22,7 +23,10 @@
 }
 
 /* ===== Resets & Globals ===== */
-* { box-sizing: border-box; }
+* { 
+  box-sizing: border-box; 
+  font-family: outfit;
+}
 body {
   margin: 0;
   background: var(--bg);
@@ -253,7 +257,7 @@ a, button, input { font-family: inherit; }
   border: none;
   border-radius: var(--radius-m);
   background: #e8eff5;
-  color: #000
+  color: #000;
   outline: none;
 }
 .send-btn {
