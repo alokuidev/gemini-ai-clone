@@ -1,142 +1,207 @@
-body {
-  margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #0f0f0f;
-  color: #ffffff;
+/* ─────────────────────────────────────────
+   Gemini Clone – Consolidated CSS (v2.1)
+   Professional slate + teal-cyan palette
+   All styles merged for plug-and-play use
+   ───────────────────────────────────────── */
+
+/* ===== Design Tokens ===== */
+:root {
+  --bg: #1a1d21;
+  --panel: #252a30cc;        /* glass panel */
+  --border: #2f343a;
+  --accent: #4dd0e1;         /* primary cyan */
+  --accent-dark: #26c6da;    /* hover */
+  --text: #e3e8ee;
+  --text-secondary: #9ea7b3;
+  --radius-s: 8px;
+  --radius-m: 14px;
+  --radius-xl: 22px;
+  --shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+  --blur: blur(20px);
+  font-family: "Inter", "Segoe UI", sans-serif;
+  font-size: 15px;
 }
 
+/* ===== Resets & Globals ===== */
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  overflow: hidden;
+}
+a, button, input { font-family: inherit; }
+
+/* ===== Layout Shell ===== */
 .gemini-wrapper {
   display: grid;
   grid-template-columns: 250px 1fr;
-  grid-template-rows: 60px 1fr;
-  height: 100vh;
+  grid-template-rows: 64px 1fr;
   grid-template-areas:
-    "header header"
+    "sidebar header"
     "sidebar main";
+  height: 100vh;
 }
 
+/* ===== Glass Utility ===== */
+.glass {
+  background: var(--panel);
+  backdrop-filter: var(--blur);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+/* ===== Header ===== */
 .gemini-header {
   grid-area: header;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 0 20px;
-  background-color: #1f1f1f;
-  border-bottom: 1px solid #333;
+  gap: 20px;
+  padding: 0 24px;
 }
-
 .logo {
-  font-size: 1.4rem;
-  font-weight: bold;
-  color: #00ffcc;
+  font-weight: 700;
+  font-size: 1.35rem;
+  letter-spacing: 0.5px;
+  color: var(--text);
 }
+.accent-dot { color: var(--accent); }
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.6; transform: scale(1.15); }
+}
+.accent-dot { animation: pulse 1.8s ease-in-out infinite; }
 
-.search-bar {
-  width: 40%;
-  padding: 8px 12px;
-  border-radius: 20px;
+.search-input {
+  flex: 1;
+  padding: 10px 14px;
   border: none;
+  border-radius: var(--radius-m);
+  background: #1e2328;
+  color: var(--text);
   outline: none;
-  background-color: #2c2c2c;
-  color: white;
 }
-
-.user-avatar {
-  background-color: #00ffcc;
-  color: #000;
+.avatar-btn {
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
-  padding: 10px;
-  width: 35px;
-  height: 35px;
-  text-align: center;
-  font-weight: bold;
+  border: none;
+  background: var(--accent);
+  color: #002329;
+  font-weight: 600;
+  cursor: pointer;
 }
 
+/* ===== Sidebar ===== */
 .gemini-sidebar {
   grid-area: sidebar;
-  background-color: #161616;
-  padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  border-right: 1px solid #333;
+  padding: 24px 18px;
+  gap: 32px;
 }
-
-.sidebar-btn {
-  background: transparent;
-  border: 1px solid #333;
-  color: white;
-  padding: 10px 15px;
-  border-radius: 8px;
-  cursor: pointer;
+.nav-btn {
+  width: 100%;
+  padding: 10px 14px;
+  margin-bottom: 12px;
   text-align: left;
-  transition: all 0.2s ease;
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  border-radius: var(--radius-s);
+  cursor: pointer;
+  transition: background 0.22s, color 0.22s, border-color 0.22s;
 }
-
-.sidebar-btn:hover,
-.sidebar-btn.active {
-  background-color: #00ffcc;
-  color: #000;
+.nav-btn:hover,
+.nav-btn.active {
+  background: var(--accent);
+  color: #002329;
+  border-color: transparent;
 }
+.gemini-sidebar footer { margin-top: auto; font-size: 0.75rem; color: var(--text-secondary); }
 
+/* ===== Chat Area ===== */
 .gemini-chat {
   grid-area: main;
   display: flex;
   flex-direction: column;
-  padding: 20px;
-  overflow-y: auto;
-  background-color: #121212;
+  overflow: hidden;
 }
 
-.chat-message {
-  max-width: 70%;
-  margin-bottom: 15px;
-  padding: 12px 16px;
-  border-radius: 10px;
-  line-height: 1.5;
-}
-
-.chat-message.user {
-  background-color: #00ffcc;
-  color: #000;
-  align-self: flex-end;
-}
-
-.chat-message.ai {
-  background-color: #2c2c2c;
-  color: #fff;
-  align-self: flex-start;
-}
-
-.chat-input-container {
-  display: flex;
-  margin-top: auto;
-  border-top: 1px solid #333;
-  padding-top: 10px;
-  gap: 10px;
-}
-
-.chat-input {
+/* Chat feed (messages) */
+.chat-feed {
   flex: 1;
-  padding: 12px;
-  border-radius: 25px;
+  display: flex;
+  flex-direction: column-reverse; /* newest at bottom */
+  align-items: center;
+  gap: 28px;
+  padding: 40px 0;
+  overflow-y: auto;
+}
+
+/* Bubble styling */
+.chat-bubble {
+  width: clamp(260px, 80%, 680px);
+  padding: 16px 22px;
+  border-radius: var(--radius-xl);
+  line-height: 1.5;
+  word-break: break-word;
+  box-shadow: var(--shadow);
+}
+.bot  { background: #242a30; }
+.user {
+  background: var(--accent);
+  color: #002329;
+  margin-left: auto;
+  text-align: right;
+}
+
+/* ===== Input Bar ===== */
+.input-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 24px;
+}
+.prompt-input {
+  flex: 1;
+  padding: 12px 18px;
   border: none;
-  background-color: #2c2c2c;
-  color: white;
+  border-radius: var(--radius-m);
+  background: #1e2328;
+  color: var(--text);
   outline: none;
 }
-
 .send-btn {
-  background-color: #00ffcc;
+  width: 42px;
+  height: 42px;
   border: none;
   border-radius: 50%;
-  padding: 10px;
-  font-size: 1.2rem;
+  background: var(--accent);
+  color: #002329;
+  font-size: 1.25rem;
   cursor: pointer;
-  color: #000;
-  transition: background 0.3s;
+  transition: background 0.25s;
 }
+.send-btn:hover { background: var(--accent-dark); }
 
-.send-btn:hover {
-  background-color: #00e6b8;
+/* ===== Scrollbar Polish ===== */
+::-webkit-scrollbar       { width: 8px; }
+::-webkit-scrollbar-thumb { background: #33383d; border-radius: 8px; }
+
+/* ===== Responsive Tweaks ===== */
+@media (max-width: 900px) {
+  .gemini-wrapper { grid-template-columns: 70px 1fr; }
+  .logo           { font-size: 1rem; }
+  .nav-btn,
+  .nav-btn.active { font-size: 0; }   /* hide labels, keep icons */
+}
+@media (max-width: 640px) {
+  .gemini-wrapper {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "header"
+      "main";
+  }
+  .gemini-sidebar { display: none; }
 }

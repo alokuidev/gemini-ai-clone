@@ -3,33 +3,54 @@ import React from "react";
 const App = () => {
   return (
     <div>
-      <div className="gemini-wrapper">
-        <header className="gemini-header">
-          <div className="logo">Gemini</div>
+          <div className="gemini-wrapper">
+      {/* === Header === */}
+      <header className="gemini-header glass">
+        <div className="logo">Gemini<span className="accent-dot">•</span></div>
+
+        <input
+          className="search-input"
+          placeholder="Search chats, docs, commands…"
+        />
+
+        <button className="avatar-btn" aria-label="User">
+          <span>A</span>
+        </button>
+      </header>
+
+      {/* === Sidebar === */}
+      <aside className="gemini-sidebar glass">
+        <nav>
+          <button className="nav-btn active">＋ New Chat</button>
+          <button className="nav-btn">🕑 History</button>
+          <button className="nav-btn">⚙️ Settings</button>
+        </nav>
+        <footer>
+          <small>© 2025 Gemini Clone</small>
+        </footer>
+      </aside>
+
+      {/* === Chat area === */}
+      <main className="gemini-chat">
+        <section className="chat-feed">
+          <div className="chat-bubble bot">
+            I can help with writing, coding, learning and more!
+          </div>
+          <div className="chat-bubble user">
+            Hi Gemini, what can you do?
+          </div>
+        </section>
+
+        {/* Input */}
+        <form className="input-bar glass">
           <input
-            className="search-bar"
-            placeholder="Search or start a chat..."
+            className="prompt-input"
+            placeholder="Type a message…"
           />
-          <div className="user-avatar">A</div>
-        </header>
-
-        <aside className="gemini-sidebar">
-          <button className="sidebar-btn active">New Chat</button>
-          <button className="sidebar-btn">History</button>
-          <button className="sidebar-btn">Settings</button>
-        </aside>
-
-        <main className="gemini-chat">
-          <div className="chat-message user">Hi Gemini, what can you do?</div>
-          <div className="chat-message ai">
-            I can help you with writing, coding, learning, and more!
-          </div>
-          <div className="chat-input-container">
-            <input className="chat-input" placeholder="Type your message..." />
-            <button className="send-btn">➤</button>
-          </div>
-        </main>
-      </div>
+          <button className="send-btn" type="submit">➤</button>
+        </form>
+      </main>
+    </div>
     </div>
   );
 };
