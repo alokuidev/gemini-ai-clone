@@ -3,8 +3,8 @@ import React, { useState } from 'react'
 const Sidebar = () => {
     const [extended, setExtended] = useState(false);
     return (
-        <aside className="gemini-sidebar glass">
-            <button className="sidebar-toggle" aria-label="Toggle Sidebar">
+        <aside className={`gemini-sidebar glass ${extended ? 'collapsed' : ''}`}>
+            <button className="sidebar-toggle" aria-label="Toggle Sidebar" onClick={() => setExtended(!extended)}>
                 <span className="bar"></span>
                 <span className="bar"></span>
                 <span className="bar"></span>
