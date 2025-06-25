@@ -61,6 +61,7 @@ a, button, input { font-family: inherit; }
   align-items: center;
   gap: 20px;
   padding: 0 24px;
+  justify-content: space-between;
 }
 .logo {
   font-weight: 700;

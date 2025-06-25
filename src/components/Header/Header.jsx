@@ -7,11 +7,6 @@ const Header = () => {
             Gemini<span className="accent-dot">•</span>
           </div>
 
-          <input
-            className="search-input"
-            placeholder="Search chats, docs, commands…"
-          />
-
           <button className="avatar-btn" aria-label="User">
             <span>A</span>
           </button>
