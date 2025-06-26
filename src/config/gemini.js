@@ -1,32 +1,44 @@
-// Required packages:
-// npm install @google/generative-ai
+// To run this code you need to install the following dependencies:
+// npm install @google/genai mime
 // npm install -D @types/node
 
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import {
+  GoogleGenAI,
+} from '@google/genai';
 
-// Set your actual API key in a .env file as VITE_GEMINI_API_KEY
-const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-console.log(apiKey);
 async function main(prompt) {
-  alert(prompt);
-  if (typeof prompt !== "string" || !prompt.trim()) {
-    throw new Error("Prompt must be a non-empty string");
+  const ai = new GoogleGenAI({
+    apiKey: 'AIzaSyCWwOKTuk1MhB5DP7unh8hDr38a4lSxtFA',
+
+  });
+  const config = {
+    thinkingConfig: {
+      thinkingBudget: -1,
+    },
+    responseMimeType: 'text/plain',
+  };
+  const model = 'gemini-2.5-pro';
+  const contents = [
+    {
+      role: 'user',
+      parts: [
+        {
+          text: prompt,
+        },
+      ],
+    },
+  ];
+
+  const response = await ai.models.generateContentStream({
+    model,
+    config,
+    contents,
+  });
+  // eslint-disable-next-line no-unused-vars
+  let fileIndex = 0;
+  for await (const chunk of response) {
+    console.log(chunk.text);
   }
-  const genAI = new GoogleGenerativeAI(apiKey);
-
-  // Load the model
-  const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
-
-  // Prepare prompt
-  //const prompt = "What is the capital of Austria?";
-
-  const result = await model.generateContent(prompt);
-  const response = await result.response;
-
-  console.log(response.text());
-  return response.text();
 }
-
-//main().catch(console.error);
 
 export default main;
