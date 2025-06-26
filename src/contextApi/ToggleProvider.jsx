@@ -4,8 +4,6 @@ import { ToggleContext } from "./ToggleContext.js";
 const ToggleProvider = ({ children }) => {
     const [toggle, setToggle] = useState(false);
     const toggleSidebar = () => {
-      
-      alert("Toggle Sidebar");
       setToggle(!toggle);
     }; 
     return (
