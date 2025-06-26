@@ -1,12 +1,19 @@
 import React, { use, useContext, useEffect, useState } from 'react'
 import { ToggleContext } from '../../contextApi/ToggleContext';
+import { PromptContext } from '../../contextApi/Context';
 
 const Sidebar = ({props}) => {
     const [extended, setExtended] = useState(false);
     const {toggle, setToggle, toggleSidebar} = useContext(ToggleContext);
+    const { onSent } = useContext(PromptContext) || {};
     const panelCollapse = () => {
         setExtended(!extended);
         toggleSidebar();
+    }
+    const handleNewChat = () => {
+        if (onSent) {
+            onSent("What is ReactJS?");
+        }
     }
     useEffect(() => {
         console.log(props)
@@ -19,7 +26,7 @@ const Sidebar = ({props}) => {
                 <span className="bar"></span>
             </button>
             <div className='button-container '>
-            <button className="nav-btn active" data-label="New Chat">＋</button>
+            <button className="nav-btn active" data-label="New Chat" onClick={handleNewChat}>＋</button>
             <button className="nav-btn" data-label="History">🕑</button>
             <button className="nav-btn" data-label="Settings">⚙️</button>
             </div>
