@@ -8,14 +8,14 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 // eslint-disable-next-line no-undef
 const apiKey = process.env.GEMINI_API_KEY || 'AIzaSyADk-953X54OJ5_J-onnvc-q5l_CvNXGlI';
 
-async function main() {
+async function main(prompt) {
   const genAI = new GoogleGenerativeAI(apiKey);
 
   // Load the model
   const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
 
   // Prepare prompt
-  const prompt = "What is the capital of Austria?";
+  //const prompt = "What is the capital of Austria?";
 
   const result = await model.generateContent(prompt);
   const response = await result.response;
@@ -23,4 +23,6 @@ async function main() {
   console.log(response.text());
 }
 
-main().catch(console.error);
+//main().catch(console.error);
+
+export default main();
