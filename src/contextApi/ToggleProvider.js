@@ -12,3 +12,5 @@ const ToggleProvider = ({ children }) => {
     </ToggleContext.Provider>
   );
 }
+
+export default ToggleProvider;
