@@ -1,9 +1,12 @@
-import React, { use, useEffect, useState } from 'react'
+import React, { use, useContext, useEffect, useState } from 'react'
+import { ToggleContext } from '../../contextApi/ToggleContext';
 
 const Sidebar = ({props}) => {
     const [extended, setExtended] = useState(false);
+    const {toggle, setToggle, toggleSidebar} = useContext(ToggleContext);
     const panelCollapse = () => {
         setExtended(!extended);
+        toggleSidebar();
     }
     useEffect(() => {
         console.log(props)
